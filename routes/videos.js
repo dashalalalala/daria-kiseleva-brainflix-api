@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
 		views: "0",
 		likes: "0",
 		duration: "0",
-		video: "https://project-2-api.herokuapp.com/stream",
+		video: "http://localhost:8080/filler-video/BrainStation-Sample-Video.mp4",
 		timestamp: req.body.timestamp,
 		comments: [],
 	};
@@ -58,7 +58,6 @@ router.post("/:videoId/comments", (req, res) => {
 		name: "New User",
 		timestamp: Date.now(),
 	};
-	console.log("new comment", newComment);
 	const videos = readVideos();
 	const singleVideo = videos.find((video) => video.id === req.params.videoId);
 	singleVideo.comments.push(newComment);
@@ -67,6 +66,21 @@ router.post("/:videoId/comments", (req, res) => {
 });
 
 //DELETE Endpoint for comments
-router.delete("/:videoId/comments/:commentId"), (req, res) => {};
+router.delete("/:videoId/comments/:commentId", (req, res) => {
+	const { commentId, videoId } = req.params;
+	const videos = readVideos();
+	const singleVideo = videos.find((video) => video.id === videoId);
+	const signleCommentIndex = singleVideo.comments.findIndex(
+		(comment) => comment.id === commentId
+	);
+	const filteredComment = singleVideo.comments.splice(signleCommentIndex, 1);
+
+	console.log("commentId", commentId);
+	console.log("filtered Comments", filteredComment);
+	console.log("videos", videos);
+
+	fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
+	res.json(filteredComment);
+});
 
 module.exports = router;
