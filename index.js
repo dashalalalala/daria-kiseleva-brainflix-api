@@ -1,9 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const fs = require("fs");
 const PORT = 8080;
-const URL = "http://localhost:";
 const videoRoutes = require("./routes/videos");
 
 app.use(cors());

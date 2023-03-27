@@ -4,7 +4,7 @@ const fs = require("fs");
 const uuid4 = require("uuid4");
 
 function readVideos() {
-	const videosJSON = fs.readFileSync("./data/video-details.json");
+	const videosJSON = fs.readFileSync("./data/videos.json");
 	const parsedVideos = JSON.parse(videosJSON);
 	return parsedVideos;
 }
