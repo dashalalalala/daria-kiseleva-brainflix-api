@@ -45,7 +45,7 @@ router.post("/", (req, res) => {
 	console.log("new video", newVideo);
 	const videos = readVideos();
 	videos.push(newVideo);
-	fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
+	fs.writeFileSync("./data/videos.json", JSON.stringify(videos));
 	res.status(200).json(newVideo);
 });
 
@@ -61,7 +61,7 @@ router.post("/:videoId/comments", (req, res) => {
 	const videos = readVideos();
 	const singleVideo = videos.find((video) => video.id === req.params.videoId);
 	singleVideo.comments.push(newComment);
-	fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
+	fs.writeFileSync("./data/videos.json", JSON.stringify(videos));
 	res.status(200).json(newComment);
 });
 
@@ -79,7 +79,7 @@ router.delete("/:videoId/comments/:commentId", (req, res) => {
 	console.log("filtered Comments", filteredComment);
 	console.log("videos", videos);
 
-	fs.writeFileSync("./data/video-details.json", JSON.stringify(videos));
+	fs.writeFileSync("./data/videos.json", JSON.stringify(videos));
 	res.json(filteredComment);
 });
 
